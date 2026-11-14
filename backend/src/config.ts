@@ -1,6 +1,12 @@
 // Configuration constants from sparky.schema.json
 import schema from '../sparky.schema.json' with { type: 'json' };
 
+// Environment variables (set via Cloudflare Workers dashboard or wrangler.toml)
+declare const SPARKY_LLM_MODEL: string | undefined;
+declare const SPARKY_LLM_TEMPERATURE: string | undefined;
+declare const SPARKY_LLM_MAX_TOKENS: string | undefined;
+declare const SPARKY_HISTORY_TURNS_KEPT: string | undefined;
+
 export const CONFIG = {
   // API
   BASE_PATH: '/api/sparky',
@@ -12,11 +18,11 @@ export const CONFIG = {
   MAX_INPUT_CHARS: schema.api.max_input_chars, // 500
   LOG_RETENTION_DAYS: schema.api.log_retention_days, // 30
 
-  // LLM (from schema)
-  LLM_MODEL: schema.api.llm.model, // gemini-3.1-flash-lite
-  LLM_TEMPERATURE: schema.api.llm.temperature, // 0.7
-  LLM_MAX_TOKENS: schema.api.llm.max_tokens, // 4000
-  HISTORY_TURNS_KEPT: schema.api.llm.history_turns_kept, // 8
+  // LLM (from env vars with schema fallback)
+  LLM_MODEL: SPARKY_LLM_MODEL || schema.api.llm.model, // gemini-3.1-flash-lite
+  LLM_TEMPERATURE: SPARKY_LLM_TEMPERATURE ? parseFloat(SPARKY_LLM_TEMPERATURE) : schema.api.llm.temperature, // 0.7
+  LLM_MAX_TOKENS: SPARKY_LLM_MAX_TOKENS ? parseInt(SPARKY_LLM_MAX_TOKENS, 10) : schema.api.llm.max_tokens, // 4000
+  HISTORY_TURNS_KEPT: SPARKY_HISTORY_TURNS_KEPT ? parseInt(SPARKY_HISTORY_TURNS_KEPT, 10) : schema.api.llm.history_turns_kept, // 8
 
   // Full schema sections for system prompt building
   persona: schema.persona,

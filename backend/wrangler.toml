@@ -5,6 +5,10 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 SPARKY_ALLOWED_ORIGINS = "*"
+SPARKY_LLM_MODEL = "gemini-3.1-flash-lite"
+SPARKY_LLM_TEMPERATURE = "0.7"
+SPARKY_LLM_MAX_TOKENS = "4000"
+SPARKY_HISTORY_TURNS_KEPT = "8"
 
 [[kv_namespaces]]
 binding = "SESSIONS"
