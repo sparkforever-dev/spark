@@ -13,7 +13,7 @@ export const CONFIG = {
   LOG_RETENTION_DAYS: schema.api.log_retention_days, // 30
 
   // LLM (from schema)
-  LLM_MODEL: schema.api.llm.model, // gemini-1.5-flash
+  LLM_MODEL: schema.api.llm.model, // gemini-2.0-flash
   LLM_TEMPERATURE: schema.api.llm.temperature, // 0.7
   LLM_MAX_TOKENS: schema.api.llm.max_tokens, // 4000
   HISTORY_TURNS_KEPT: schema.api.llm.history_turns_kept, // 8
