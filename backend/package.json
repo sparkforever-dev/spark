@@ -1,0 +1,20 @@
+{
+  "name": "earth-jukebox-sparky",
+  "version": "1.0.0",
+  "description": "Sparky backend for Earth Jukebox - Cloudflare Workers",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev --port 8787",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "itty-router": "^5.0.18"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250204.0",
+    "typescript": "^5.5.0",
+    "wrangler": "^3.70.0"
+  }
+}
