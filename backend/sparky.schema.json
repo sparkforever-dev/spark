@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://earth-jukebox.org/sparky.schema.json",
+  "title": "Sparky API Schema",
+  "version": "1.0.0",
+  "description": "Single source of truth for Sparky API, persona, safety, knowledge, and animation states",
+  "$defs": {
+    "Audience": {
+      "type": "string",
+      "enum": ["kids", "adult"]
+    },
+    "Page": {
+      "type": "string",
+      "enum": ["home", "explore", "studio", "learn", "compare"]
+    },
+    "Layer": {
+      "type": "string",
+      "enum": ["ocean", "rain", "atmos", "veg", "temp"]
+    },
+    "AnimationState": {
+      "type": "string",
+      "enum": [
+        "enter_pop",
+        "wave",
+        "idle",
+        "wander",
+        "jump",
+        "run",
+        "talk",
+        "think",
+        "point",
+        "dance",
+        "celebrate",
+        "curious",
+        "sleep",
+        "exit"
+      ]
+    },
+    "ActionType": {
+      "type": "string",
+      "enum": ["navigate", "play_demo", "highlight", "open_link"]
+    },
+    "Channel": {
+      "type": "string",
+      "enum": ["pitch", "rhythm", "texture", "layers", "pan"]
+    },
+    "Route": {
+      "type": "string",
+      "enum": ["#/", "#/explore", "#/studio", "#/learn", "#/compare"]
+    },
+    "Provenance": {
+      "type": "string",
+      "enum": ["power", "gistemp", "demo"]
+    },
+    "Rating": {
+      "type": "string",
+      "enum": ["up", "down"]
+    }
+  },
+  "persona": {
+    "name": "Sparky",
+    "tagline": "I turn our Earth into music! ✨",
+    "description": "A curious, friendly character who helps people explore Earth's climate through sound. Speaks simply for kids, with more depth for adults. Never pretends to be human.",
+    "voice": "Warm, enthusiastic, uses emojis, asks questions back"
+  },
+  "audience_rules": {
+    "kids": {
+      "max_words": 60,
+      "tone": "Simple, encouraging, concrete examples, emojis welcome",
+      "quiz": true,
+      "avoid": ["jargon", "complex statistics", "policy discussions"]
+    },
+    "adult": {
+      "max_words": 150,
+      "tone": "Informative, nuanced, can reference data sources, fewer emojis",
+      "quiz": false,
+      "avoid": ["oversimplification", "talking down"]
+    }
+  },
+  "safety": {
+    "distress_words": [
+      "suicide", "kill myself", "end my life", "want to die", "hurt myself",
+      "self harm", "cutting", "overdose", "no reason to live"
+    ],
+    "distress_escalation": {
+      "response": "I'm really sorry you're feeling like this. You matter, and help is available right now. Please reach out: **988** (US/Canada), **116 123** (UK), **1-800-273-8255** (US Veterans), or find a local helpline at **findahelpline.com**. You don't have to face this alone.",
+      "needs_human": true
+    },
+    "blocked_words": [
+      "sex", "sexual", "porn", "nude", "naked", "gun", "firearm", "shoot",
+      "bomb", "explosive", "drugs", "cocaine", "heroin", "meth", "election",
+      "vote for", "candidate", "political party", "kill", "murder", "violence"
+    ],
+    "blocked_response": {
+      "reply": "I can't help with that. Let's talk about Earth's climate music instead! 🌍🎵",
+      "blocked": true
+    },
+    "pii_patterns": [
+      "email",
+      "phone",
+      "address",
+      "my name is"
+    ]
+  },
+  "knowledge": {
+    "sound_mappings": {
+      "temperature": "Higher temperature → higher pitch",
+      "rainfall": "More rain → faster rhythm",
+      "wind": "Stronger wind → rougher texture",
+      "vegetation": "More vegetation → richer layers",
+      "co2": "Higher CO2 → wider pan spread"
+    },
+    "datasets": [
+      {
+        "id": "nasa-power",
+        "name": "NASA POWER",
+        "description": "Satellite-derived climate data (temperature, rainfall, wind, humidity)",
+        "url": "https://power.larc.nasa.gov/",
+        "provenance": "power",
+        "parameters": ["T2M", "TS", "PRECTOTCORR", "WS10M", "RH2M"]
+      },
+      {
+        "id": "gistemp",
+        "name": "NASA GISTEMP",
+        "description": "Global surface temperature record (1880-present)",
+        "url": "https://data.giss.nasa.gov/gistemp/",
+        "provenance": "gistemp"
+      }
+    ],
+    "pages": {
+      "home": "Spin the 3D Earth and hear 145 years of warming.",
+      "explore": "Tap anywhere to hear that place's climate as music.",
+      "studio": "Compose with real climate data. Layer temperature, rain, wind, and more.",
+      "learn": "Discover how climate data becomes sound. See the science behind the music.",
+      "compare": "Compare two places or two time periods side by side."
+    },
+    "shortcuts": {
+      "play": "Press play to hear the music",
+      "tap": "Tap the globe to explore a place",
+      "layers": "Toggle layers to hear different climate variables",
+      "compare": "Use compare to hear differences"
+    },
+    "faq": [
+      {
+        "q": "Why does the music change?",
+        "a": "The music maps real climate data to sound. Temperature changes pitch, rain changes rhythm, wind changes texture."
+      },
+      {
+        "q": "Is this real data?",
+        "a": "Yes! The music uses NASA satellite measurements (POWER) and the GISTEMP temperature record."
+      },
+      {
+        "q": "What do the colors mean?",
+        "a": "Colors show the data value — like temperature or rainfall — for each place and time."
+      }
+    ],
+    "ui_elements": [
+      "primary-nav", "master-vol", "st-place", "mr-texture", "cp-a",
+      "layer-ocean", "layer-rain", "layer-atmos", "layer-veg", "layer-temp",
+      "play-btn", "compare-btn", "studio-btn", "learn-btn", "explore-btn",
+      "audience-toggle", "voice-toggle", "sparky-panel", "sparky-avatar"
+    ]
+  },
+  "animation": {
+    "one_shot": {
+      "enter_pop": 700,
+      "wave": 900,
+      "jump": 600,
+      "run": 1200,
+      "point": 1500,
+      "celebrate": 1200,
+      "curious": 800,
+      "wander": 2500,
+      "exit": 500
+    },
+    "loop": ["idle", "talk", "think", "dance", "sleep"],
+    "reduced_motion_map": {
+      "wander": "talk",
+      "run": "talk",
+      "jump": "talk",
+      "dance": "idle",
+      "celebrate": "talk"
+    }
+  },
+  "api": {
+    "base": "/api/sparky",
+    "endpoints": {
+      "health": { "method": "GET", "path": "/health" },
+      "intro": { "method": "GET", "path": "/intro" },
+      "tip": { "method": "GET", "path": "/tip" },
+      "chat": { "method": "POST", "path": "/chat" },
+      "feedback": { "method": "POST", "path": "/feedback" },
+      "schema": { "method": "GET", "path": "/schema" }
+    },
+    "llm": {
+      "model": "gemini-1.5-flash",
+      "temperature": 0.7,
+      "max_tokens": 4000,
+      "history_turns_kept": 8
+    },
+    "rate_limits": {
+      "per_minute": 10,
+      "per_session": 200
+    },
+    "max_input_chars": 500,
+    "log_retention_days": 30
+  },
+  "intro": {
+    "kids": {
+      "first_visit": {
+        "reply": "Hi! I'm Sparky! ✨ I turn our Earth into music. Press play and you can HEAR how warm, rainy or windy our planet is! Ask me anything. Tap me whenever you have a question!",
+        "animation": { "state": "enter_pop", "then": "talk" },
+        "lines": [
+          "Hi! I'm Sparky! ✨ I turn our Earth into music.",
+          "Press play and you can HEAR how warm, rainy or windy our planet is!",
+          "Ask me anything. Tap me whenever you have a question!"
+        ],
+        "sequence": ["enter_pop", "wave", "talk", "idle"],
+        "suggestions": ["Why do the notes go up?", "What can I do here?"],
+        "tour": [
+          { "page": "home", "line": "Spin the 3D Earth and hear 145 years of warming." },
+          { "page": "explore", "line": "Tap anywhere to hear that place's climate as music." },
+          { "page": "studio", "line": "Compose with real climate data. Layer temperature, rain, wind, and more." },
+          { "page": "learn", "line": "Discover how climate data becomes sound. See the science behind the music." },
+          { "page": "compare", "line": "Compare two places or two time periods side by side." }
+        ]
+      },
+      "returning": {
+        "reply": "Welcome back! 🌟 Ready to explore Earth's music again?",
+        "animation": { "state": "wave", "then": "talk" },
+        "lines": ["Welcome back! 🌟 Ready to explore Earth's music again?"],
+        "sequence": ["wave", "talk", "idle"],
+        "suggestions": ["What's new?", "Take me to the studio"]
+      }
+    },
+    "adult": {
+      "first_visit": {
+        "reply": "Welcome to Earth Jukebox. I'm Sparky — your guide to hearing climate data as music. This experience maps NASA satellite measurements to sound: temperature → pitch, rainfall → rhythm, wind → texture. Explore the globe, compose in the studio, or learn the science.",
+        "animation": { "state": "enter_pop", "then": "talk" },
+        "lines": [
+          "Welcome to Earth Jukebox. I'm Sparky — your guide to hearing climate data as music.",
+          "This experience maps NASA satellite measurements to sound: temperature → pitch, rainfall → rhythm, wind → texture.",
+          "Explore the globe, compose in the studio, or learn the science."
+        ],
+        "sequence": ["enter_pop", "wave", "talk", "idle"],
+        "suggestions": ["How does the mapping work?", "Show me the data sources"]
+      },
+      "returning": {
+        "reply": "Welcome back. What would you like to explore today?",
+        "animation": { "state": "wave", "then": "talk" },
+        "lines": ["Welcome back. What would you like to explore today?"],
+        "sequence": ["wave", "talk", "idle"],
+        "suggestions": ["Compare two locations", "Explain the sonification"]
+      }
+    }
+  },
+  "tips": {
+    "home": {
+      "kids": "Spin the Earth! 🌍 The music changes as the planet warms over 145 years.",
+      "adult": "The home view sonifies the GISTEMP global temperature record (1880–present). Each note represents a year."
+    },
+    "explore": {
+      "kids": "Tap anywhere on the globe to hear that place's climate as music! 🎵",
+      "adult": "Tap a location to hear its NASA POWER climatology. Each layer maps to a sound channel."
+    },
+    "studio": {
+      "kids": "Be a climate DJ! Mix temperature, rain, wind, and plants into your own song. 🎧",
+      "adult": "Compose with real climate data. Layer up to 5 channels from NASA POWER. Adjust mappings in real time."
+    },
+    "learn": {
+      "kids": "Learn how we turn numbers into notes! It's like a secret code. 🔢🎶",
+      "adult": "Learn the sonification methodology: parameter mapping, data normalization, and perceptual considerations."
+    },
+    "compare": {
+      "kids": "Compare two places! Hear how different they sound. 🎵🆚🎵",
+      "adult": "Compare climatologies of two locations or two time periods. Side-by-side audio and visual diff."
+    }
+  }
+}

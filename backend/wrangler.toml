@@ -1,0 +1,22 @@
+name = "earth-jukebox-sparky"
+main = "src/index.ts"
+compatibility_date = "2024-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+SPARKY_ALLOWED_ORIGINS = "*"
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "<SESSIONS_KV_ID>"
+preview_id = "<SESSIONS_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "RATE_LIMITS"
+id = "<RATE_LIMITS_KV_ID>"
+preview_id = "<RATE_LIMITS_PREVIEW_ID>"
+
+[[kv_namespaces]]
+binding = "LOGS"
+id = "<LOGS_KV_ID>"
+preview_id = "<LOGS_PREVIEW_ID>"
