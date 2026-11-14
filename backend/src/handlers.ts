@@ -28,7 +28,7 @@ async function loadSchema(): Promise<any> {
     }
   } catch {}
   // Fallback: return minimal schema structure
-  return { $defs: {}, api: { llm: { model: 'gemini-2.0-flash' } } };
+  return { $defs: {}, api: { llm: { model: 'gemini-2.0-flash-lite' } } };
 }
 
 // ============ Validation ============
