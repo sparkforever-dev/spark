@@ -24,3 +24,4 @@ preview_id = "<RATE_LIMITS_PREVIEW_ID>"
 binding = "LOGS"
 id = "<LOGS_KV_ID>"
 preview_id = "<LOGS_PREVIEW_ID>"
+
